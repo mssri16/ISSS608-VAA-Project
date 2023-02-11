@@ -2,10 +2,8 @@
 title: "ISSS608-VAA-Project"
 ---
 
-This is a Quarto website.
+This is a Quarto website for Visual Analytics Project(AY 2022-23).
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Topic: Movie Trend Analysis
 
-```{r}
-1 + 1
-```
+The movie data set is used to analyze the trend and visually represent the data.

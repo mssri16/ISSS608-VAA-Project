@@ -1,0 +1,28 @@
+---
+title: "Proposal"
+---
+
+## **Background**
+
+Anticipating rapid growth, the city of Engagement, Ohio USA is doing a participatory urban planning exercise to understand the current state of the city and identify opportunities for future growth. About 1000 representative residents in this modest-sized city have agreed to provide data using the city\'s urban planning app, which records the places they visit, their spending, and their purchases, among other things. From these volunteers, the city will have data to assist with their major community revitalization efforts, including how to allocate a very large city renewal grant they have recently received.
+
+## **Motivation**
+
+The motivation of our group based on the different question is as such:\
+\
+•   Our group will be providing insights on the diversity of the population by the different regions of the city. Residents will have a **better understanding on the spread of the population** and **provide new residents insights** on where is the best region based on their needs and status.\
+•   From the social activities and network, we will be **providing insights on who are the influential resident** on weekdays (work influence) and weekends (social influence). This will allow them to understand who they can approach if they require any assistance based on their needs.\
+•   We will be providing insights on the predominant business base of the town based on different time periods. Residents will have a better understanding on what businesses the city is focusing on and possible trends on the business revenue.
+
+## **Data Set**
+
+To analyse and plot the required graphs, these are the data set and their description that our team will be exploring:\
+\
+•   **Participant.csv:** To retrieve all participant\'s information\
+•   **Socialnetwork.csv:** To retrieve all interaction of participants\
+•   **Pubs.csv:** To retrive pubs information such as BuildingId and HourlyCost\
+•   **Restaurants.csv:** To retrieve restaurants information such as BuildingId and FoodCost\
+•   **Buildings.csv:** To retrieve the building polygons\
+•   **Apartments.csv:** To retrieve location and rental cost of Apartments\
+•   **CheckInJournal.csv:** To retrieve the number of check-ins for Pubs, Restaurants and Home\
+•   **FinancialJournal.csv:** To retrieve the wage of participants
