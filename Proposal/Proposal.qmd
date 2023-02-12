@@ -4,21 +4,27 @@ title: "Proposal"
 
 ## **Background**
 
-Anticipating rapid growth, the city of Engagement, Ohio USA is doing a participatory urban planning exercise to understand the current state of the city and identify opportunities for future growth. About 1000 representative residents in this modest-sized city have agreed to provide data using the city\'s urban planning app, which records the places they visit, their spending, and their purchases, among other things. From these volunteers, the city will have data to assist with their major community revitalization efforts, including how to allocate a very large city renewal grant they have recently received.
+The movie industry is constantly evolving, with new films being produced and released every year. To understand the current state of the industry and predict future trends, movie trend analysis is an essential tool. By analyzing various data sources such as box office performance, critical reception, and audience demographics, analysts can gain insights into the popularity of different genres, production techniques, and marketing strategies. This information can then be used by film studios, production companies, and investors to make informed decisions about future projects. Additionally, movie trend analysis can help movie theaters and streaming platforms plan their schedules and allocate resources to maximize their profits. With the increasing amount of data being generated in the movie industry, movie trend analysis has become an important tool for staying ahead of the curve and predicting the next big hit.
 
 ## **Motivation**
 
-The motivation of our group based on the different question is as such:\
-\
-•   Our group will be providing insights on the diversity of the population by the different regions of the city. Residents will have a **better understanding on the spread of the population** and **provide new residents insights** on where is the best region based on their needs and status.\
-•   From the social activities and network, we will be **providing insights on who are the influential resident** on weekdays (work influence) and weekends (social influence). This will allow them to understand who they can approach if they require any assistance based on their needs.\
-•   We will be providing insights on the predominant business base of the town based on different time periods. Residents will have a better understanding on what businesses the city is focusing on and possible trends on the business revenue.
+There are several motivations behind the development and use of movie trend analysis tools. These include:
+
+1.  To Improve Decision-Making: Movie trend analysis tools provide valuable insights into the current state of the movie industry, helping individuals and organizations make informed decisions about future projects.
+
+2.  To Track Trends: By aggregating and analyzing large amounts of data, movie trend analysis tools make it easy to track trends in the movie industry, such as the popularity of specific genres, production techniques, and marketing strategies.
+
+3.  To Identify Opportunities: By identifying trends and patterns in the data, movie trend analysis tools can help users identify new opportunities for success in the industry.
+
+4.  To Stay Ahead of the Competition: With the movie industry constantly evolving, movie trend analysis tools allow individuals and organizations to stay ahead of the curve and be prepared for the next big trend.
+
+5.  To Maximize Profits: By understanding the success factors of different films and genres, movie trend analysis tools can help movie theaters, production companies, and investors maximize their profits.
 
 ## **Data Set**
 
 To analyse and plot the required graphs, these are the data set and their description that our team will be exploring:\
 \
-•   **Participant.csv:** To retrieve all participant\'s information\
+•   **Participant.csv:** To retrieve all participant's information\
 •   **Socialnetwork.csv:** To retrieve all interaction of participants\
 •   **Pubs.csv:** To retrive pubs information such as BuildingId and HourlyCost\
 •   **Restaurants.csv:** To retrieve restaurants information such as BuildingId and FoodCost\
