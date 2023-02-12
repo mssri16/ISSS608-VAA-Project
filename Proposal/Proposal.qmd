@@ -36,7 +36,7 @@ There are several motivations behind the development and use of movie trend anal
 
 3.  To Maximize Profits: By understanding the success factors of different films and genres, movie trend analysis tools can help movie theaters, production companies, and investors maximize their profits.
 
-## Objectives:
+## **Objectives**
 
 Our project is interested in the following problems.
 

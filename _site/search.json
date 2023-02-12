@@ -38,7 +38,7 @@
     "objectID": "Proposal/Proposal.html#objectives",
     "href": "Proposal/Proposal.html#objectives",
     "title": "ISSS 608 Project Proposal",
-    "section": "Objectives:",
-    "text": "Objectives:\nOur project is interested in the following problems.\n\nTo identify features of movies that are more popular in recent years. This can facilitate decision-making for companies that may be interested in investing in movie projects.\nTo apply regression models in an attempt to predict the ROI of a particular movie project given various feature data, like genre, budget, etc.\n(stretch goal) to identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people’s movie viewing habits, over the past 5 years"
+    "section": "Objectives",
+    "text": "Objectives\nOur project is interested in the following problems.\n\nTo identify features of movies that are more popular in recent years. This can facilitate decision-making for companies that may be interested in investing in movie projects.\nTo apply regression models in an attempt to predict the ROI of a particular movie project given various feature data, like genre, budget, etc.\n(stretch goal) to identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people’s movie viewing habits, over the past 5 years"
   }
 ]
