@@ -1,5 +1,25 @@
 ---
-title: "Proposal"
+title: "ISSS 608 Project Proposal"
+subtitle: "Movie Trend Analysis for Business Insights"
+editor: visual
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    warning: false
+    message: false
+author:
+  - name: "Shi Chee Liang"
+    affiliations:
+    - name: "Singapore Management University"
+  - name: "Srivatsan Madapuzi Srinivasan"
+    affiliations:
+    - name: "Singapore Management University"
+  - name: "Siddharth Singh"
+    affiliations:
+    - name: "Singapore Management University"
+date: "12 February 2023"
+date-modified: "`r Sys.Date()`"
 ---
 
 ## **Background**
@@ -10,15 +30,21 @@ The movie industry is constantly evolving, with new films being produced and rel
 
 There are several motivations behind the development and use of movie trend analysis tools. These include:
 
-1.  To Improve Decision-Making: Movie trend analysis tools provide valuable insights into the current state of the movie industry, helping individuals and organizations make informed decisions about future projects.
+1.  To Improve Decision-Making: Movie trend analysis provide valuable insights into the current state of the movie industry, helping individuals and organizations make informed decisions about future projects.
 
-2.  To Track Trends: By aggregating and analyzing large amounts of data, movie trend analysis tools make it easy to track trends in the movie industry, such as the popularity of specific genres, production techniques, and marketing strategies.
+2.  To Identify Opportunities: By identifying trends and patterns in the data, movie trend analysis tools can help users identify new opportunities for success in the industry.
 
-3.  To Identify Opportunities: By identifying trends and patterns in the data, movie trend analysis tools can help users identify new opportunities for success in the industry.
+3.  To Maximize Profits: By understanding the success factors of different films and genres, movie trend analysis tools can help movie theaters, production companies, and investors maximize their profits.
 
-4.  To Stay Ahead of the Competition: With the movie industry constantly evolving, movie trend analysis tools allow individuals and organizations to stay ahead of the curve and be prepared for the next big trend.
+## Objectives:
 
-5.  To Maximize Profits: By understanding the success factors of different films and genres, movie trend analysis tools can help movie theaters, production companies, and investors maximize their profits.
+Our project is interested in the following problems.
+
+1.	To identify features of movies that are more popular in recent years. This can facilitate decision-making for companies that may be interested in investing in movie projects.
+
+2.	To apply regression models in an attempt to predict the ROI of a particular movie project given various feature data, like genre, budget, etc.
+
+3.	(stretch goal) to identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people's movie viewing habits, over the past 5 years
 
 ## **Data Set**
 
