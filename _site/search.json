@@ -40,5 +40,12 @@
     "title": "ISSS 608 Project Proposal",
     "section": "Objectives",
     "text": "Objectives\nOur project is interested in the following problems.\n\nTo identify features of movies that are more popular in recent years. This can facilitate decision-making for companies that may be interested in investing in movie projects.\nTo apply regression models in an attempt to predict the ROI of a particular movie project given various feature data, like genre, budget, etc.\n(stretch goal) to identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people’s movie viewing habits, over the past 5 years"
+  },
+  {
+    "objectID": "Proposal/Proposal.html#project-visualizations",
+    "href": "Proposal/Proposal.html#project-visualizations",
+    "title": "ISSS 608 Project Proposal",
+    "section": "Project Visualizations",
+    "text": "Project Visualizations\nEDA\nAllows users to select different kinds of visualisation models as well as toggle the years to display how the various genres fared in terms of revenue. Currently expected to use at least tree map and line chart. We would also attempt to indicate notable events that happened in a year where possible. E.g. 911, various pandemic\n\nAnalysis\nOn a 2nd tab, we will allow the use to select various regression modeling techniques as well as toggle selected features to view the significance of the features on the ROI of movies\n\nPrediction\nIn a final tab, we would like just 1 or 2 of the best regression model and allow the user to key in various parameters to determine if a movie would make money."
   }
 ]
