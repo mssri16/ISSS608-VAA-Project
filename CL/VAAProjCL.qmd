@@ -1,0 +1,56 @@
+---
+title: "VAA PRoject - SCL"
+editor: visual
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    warning: false
+    message: false
+author: "Shi Chee Liang"
+date: 10 March 2023
+date-modified: "`r Sys.Date()`"
+---
+
+load packages
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+Import data
+
+```{r}
+# movie <- read_csv('data/movies.csv')
+```
+
+Filter data
+
+```{r}
+# movie <- movie %>%
+#   Select()
+```
+
+Manipulate data
+
+```{r}
+
+```
+
+Add data
+
+```{r}
+
+```
+
+Drop date
+
+```{r}
+
+```
+
+Write to file
+
+```{r}
+
+```
