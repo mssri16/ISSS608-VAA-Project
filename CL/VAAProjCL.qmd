@@ -15,26 +15,35 @@ date-modified: "`r Sys.Date()`"
 load packages
 
 ```{r}
-pacman::p_load(tidyverse)
+pacman::p_load(tidyverse, readr)
 ```
 
 Import data
 
 ```{r}
-# movie <- read_csv('data/movies.csv')
+movie <- read_csv('data/movies.csv')
 ```
 
 Filter data
 
 ```{r}
-# movie <- movie %>%
-#   Select()
+movie <- movie %>%
+  select('id', 'title', 'genres', 'original_language', 'popularity', 'production_companies', 'release_date', 'budget', 'revenue', 'runtime', 'status', 'vote_average', 'vote_count', 'credits', 'keywords')
 ```
 
 Manipulate data
 
 ```{r}
-
+movie <- movie %>%
+  filter(status == "Released") %>%
+  filter(genres != "") %>%
+  filter(budget != "0") %>%
+  filter(revenue != "0") %>%
+  filter(runtime != "0") %>%
+  mutate(genres = lapply(strsplit(genres,"-"), as.list)) %>%
+  mutate(production_companies = lapply(strsplit(production_companies,"-"), as.list)) %>%
+  mutate(credits = lapply(strsplit(credits,"-"), as.list)) %>%
+  mutate(keywords = lapply(strsplit(keywords,"-"), as.list))
 ```
 
 Add data
@@ -52,5 +61,11 @@ Drop date
 Write to file
 
 ```{r}
+write_rds(movie, "data/moviestidied.rds")
+```
 
+Read Back the file
+
+```{r}
+movietidied <- read_rds("data/moviestidied.rds")
 ```
