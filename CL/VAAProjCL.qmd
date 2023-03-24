@@ -15,18 +15,22 @@ date-modified: "`r Sys.Date()`"
 load packages
 
 ```{r}
-pacman::p_load(tidyverse, readr)
+pacman::p_load(tidyverse, readr, lubridate, plotly)
 ```
 
 Import data
 
 ```{r}
+#| Eval = False
+
 movie <- read_csv('data/movies.csv')
 ```
 
 Filter data
 
 ```{r}
+#| Eval = False
+
 movie <- movie %>%
   select('id', 'title', 'genres', 'original_language', 'popularity', 'production_companies', 'release_date', 'budget', 'revenue', 'runtime', 'status', 'vote_average', 'vote_count', 'credits', 'keywords')
 ```
@@ -34,9 +38,11 @@ movie <- movie %>%
 Manipulate data
 
 ```{r}
-movie <- movie %>%
+#| Eval = False
+
+movie2 <- movie %>%
+  filter(complete.cases(.)) %>%
   filter(status == "Released") %>%
-  filter(genres != "") %>%
   filter(budget != "0") %>%
   filter(revenue != "0") %>%
   filter(runtime != "0") %>%
@@ -46,22 +52,47 @@ movie <- movie %>%
   mutate(keywords = lapply(strsplit(keywords,"-"), as.list))
 ```
 
+Check it
+
+```{r}
+glimpse(movie2)
+```
+
+```{r}
+#change revenue to millions / thousands?
+movie2 <- movie2 %>%
+  mutate(budget = as.numeric(budget)/1000000) %>%
+  mutate(revenue = as.numeric(revenue)/1000000)
+```
+
+Date is in the correct format, don't need to change
+
 Add data
 
 ```{r}
-
+#change date to year
+movie2 <- movie2 %>% 
+  mutate(release_year = year(as.Date(release_date)))
 ```
 
-Drop date
+Drop data
 
 ```{r}
+#drop released
+```
 
+Check nulls
+
+```{r}
+colSums(is.na(movie2))
 ```
 
 Write to file
 
 ```{r}
-write_rds(movie, "data/moviestidied.rds")
+#| Eval = False
+
+write_rds(movie2, "data/moviestidied.rds")
 ```
 
 Read Back the file
@@ -69,3 +100,340 @@ Read Back the file
 ```{r}
 movietidied <- read_rds("data/moviestidied.rds")
 ```
+
+```{r}
+head(movietidied)
+```
+
+EDA
+
+```{r}
+# Filter the dataset to only include the desired genre
+filtercriteria <- c("Action", "Comedy", "Drama")
+
+#unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))
+
+#filter requiresd data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>% #remove this if filtering everything
+  group_by(genres, release_year) %>% 
+  summarize(total_revenue = sum(revenue)) %>%
+  filter(release_year <= 2022)  # Filter data up to 2022
+
+# Create a line chart
+prevenue <- ggplot(movieEDA, aes(x = release_year, y = total_revenue, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  labs(title = "Box Office Earnings by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Total Revenue",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+ggplotly(prevenue)
+
+```
+
+```{r}
+filtercriteria <- c("Action", "Comedy", "Drama")
+
+#unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))
+
+#filter requiresd data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>% #remove this if filtering everything
+  group_by(genres, release_year) %>% 
+  summarize(total_budget = sum(budget)) %>%
+  filter(release_year <= 2022)  # Filter data up to 2022
+
+# Create a line chart
+pbudget <- ggplot(movieEDA, aes(x = release_year, y = total_budget, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  labs(title = "Budget by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Total Budget",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+ggplotly(pbudget)
+```
+
+```{r}
+#unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))
+
+#filter requiresd data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>% 
+  group_by(genres, release_year) %>% 
+  summarize(total_revenue = sum(revenue), total_budget = sum(budget)) %>%
+  filter(release_year <= 2022) %>% # Filter data up to 2022
+  mutate(percent_revenue_to_budget = round(total_revenue / total_budget * 100, 0)) # Compute percentage of revenue to budget and round to nearest integer
+
+# Create a line chart
+pbudget <- ggplot(movieEDA, aes(x = release_year, y = total_budget, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  labs(title = "Budget by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Total Budget",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+# Create a line chart for percentage of revenue to budget
+pgrossprofit <- ggplot(movieEDA, aes(x = release_year, y = percent_revenue_to_budget, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  scale_y_continuous(limits = c(min(movieEDA$percent_revenue_to_budget), max(movieEDA$percent_revenue_to_budget)), expand = c(0,0)) +
+  labs(title = "Percentage of Revenue to Budget by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Percentage of Revenue to Budget",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+# Combine the two plots into one using plotly
+subplot(pbudget, pgrossprofit, nrows = 2, titleY = TRUE, heights = c(0.7, 0.3))
+
+```
+
+```{r}
+# Filter the dataset to only include the desired genre
+filtercriteria <- c("Action", "Comedy", "Drama")
+
+#unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))
+
+#filter requiresd data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>%
+  group_by(genres, release_year) %>% 
+  summarize(total_revenue = sum(revenue),
+            total_budget = sum(budget),
+            profit_pct = round((total_revenue - total_budget) / total_budget * 100)) %>%
+  filter(release_year <= 2022)  # Filter data up to 2022
+
+# Create a line chart
+pgrossprofit <- ggplot(movieEDA, aes(x = release_year, y = profit_pct, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+   scale_y_continuous(limits = c(-100, 400), breaks = seq(-100, 400, by = 100)) +
+  labs(title = "Gross Profit Percentage by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Gross Profit Percentage",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1")
+
+ggplotly(pgrossprofit)
+
+```
+
+```{r}
+# Filter the dataset to only include the desired genre
+filtercriteria <- c("Action")
+
+# Unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres) %>%
+  mutate(genres = as.character(genres))
+
+# Filter required data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>% 
+  group_by(genres, release_year) %>% 
+  summarize(total_revenue = sum(revenue), total_budget = sum(budget)) %>%
+  filter(release_year <= 2022) %>% # Filter data up to 2022
+  mutate(percent_revenue_to_budget = round(total_revenue / total_budget * 100, 0)) # Compute percentage of revenue to budget and round to nearest integer
+
+# Create a line chart
+p <- ggplot(movieEDA, aes(x = release_year)) +
+  geom_line(aes(y = total_budget, color = genres), size = 1.5) +
+  geom_line(aes(y = total_revenue, color = genres), size = 1.5, linetype = 2) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  labs(title = "Budget and Revenue by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Amount",
+       color = "Genres",
+       linetype = "Revenue") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+# Create a line chart for percentage of revenue to budget
+pgrossprofit <- ggplot(movieEDA, aes(x = release_year, y = percent_revenue_to_budget, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+     scale_y_continuous(limits = c(-50, 500), breaks = seq(-50, 500, by = 100)) +
+  labs(title = "Percentage of Revenue to Budget by Genre and Year",
+       subtitle = "Showing trends for Action, Comedy, and Drama genres",
+       x = "Release Year",
+       y = "Percentage of Revenue to Budget",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_brewer(palette = "Set1") #remove this for more colours
+
+# Combine the two plots into one using plotly
+subplot(p, pgrossprofit, nrows = 2, titleY = TRUE, heights = c(0.7, 0.3))
+
+```
+
+```{r}
+# Filter the dataset to only include the desired genre
+filtercriteria <- c("Action")
+
+# Unnest the data for filtering
+movieEDA <- movietidied %>% 
+  unnest(genres) %>%
+  mutate(genres = as.character(genres))
+
+# Filter required data
+movieEDA <- movieEDA %>%
+  filter(genres %in% filtercriteria) %>% 
+  group_by(genres, release_year) %>% 
+  summarize(total_revenue = sum(revenue), total_budget = sum(budget)) %>%
+  filter(release_year <= 2022) %>% # Filter data up to 2022
+  mutate(percent_revenue_to_budget = round(total_revenue / total_budget * 100, 0)) # Compute percentage of revenue to budget and round to nearest integer
+
+# Create a line chart
+p <- ggplot(movieEDA, aes(x = release_year)) +
+  geom_line(aes(y = total_budget, color = genres), size = 1.5) +
+  geom_line(aes(y = total_revenue, color = genres), size = 1.5, linetype = 2) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  labs(title = "Budget and Revenue by Genre and Year",
+       subtitle = "Showing trends for the Action genre",
+       x = "Release Year",
+       y = "Amount",
+       color = "Genres",
+       linetype = "Revenue") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_manual(values = "red") # Set the color for the Action genre to blue
+
+# Create a line chart for percentage of revenue to budget
+pgrossprofit <- ggplot(movieEDA, aes(x = release_year, y = percent_revenue_to_budget, color = genres)) +
+  geom_line(size = 1.5) +
+  scale_x_continuous(limits = c(year(Sys.Date()) - 10, year(Sys.Date()) - 1), breaks = seq(year(Sys.Date()) - 10, year(Sys.Date()), by = 1)) +
+  scale_y_continuous(limits = c(-50, 500), breaks = seq(-50, 500, by = 100)) +
+  labs(title = "Percentage of Revenue to Budget by Genre and Year",
+       subtitle = "Showing trends for the Action genre",
+       x = "Release Year",
+       y = "Percentage of Revenue to Budget",
+       color = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        plot.subtitle = element_text(size = 15),
+        plot.caption = element_text(size = 10),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10)) +
+  scale_color_manual(values = "green") # Set the color for the Action genre to blue
+
+# Combine the two plots into one using plotly
+subplot(p, pgrossprofit, nrows = 2, titleY = TRUE, heights = c(0.7, 0.3))
+
+```
+
+```{r}
+#FILTER FOR YEAR
+year <- 2022
+
+# List of genres to include
+genre_list <- c("Action", "Comedy", "Drama", "Thriller", "Horror", "Adventure", "Science Fiction", "Mystery", "Fantasy", "Animation")
+
+# Get the count of movies released per year for each genre
+movieEDA <- movietidied %>%
+  unnest(genres) %>%
+  mutate(genres = as.character(genres)) %>%
+  filter(release_year == year & genres %in% genre_list) %>%
+  group_by(genres) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count))  # reorder the genres by count in descending order
+
+# Create a horizontal bar chart with a color palette
+ggplot(movieEDA, aes(x = reorder(genres, count), y = count, fill = genres)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set3") +  # set the color palette
+  labs(title = paste0("Number of Movies Released in ", year),
+       x = "Count",
+       y = "Genres") +
+  theme(plot.title = element_text(size = 20),
+        axis.title = element_text(size = 12, face = "bold"),
+        axis.text = element_text(size = 10),
+        legend.title = element_blank(),
+        legend.position = "none") +
+  coord_flip()  # flip the chart
+
+
+```
+
+Analysis
+
+```{r}
+# Load the data
+
+# Create a new column with the combined genres
+movietidied$combined_genres <- sapply(movietidied$genres, paste, collapse = ", ")
+
+# Group the data by the combined genres and calculate the total revenue for each group
+genre_revenue <- movietidied %>%
+  group_by(combined_genres) %>%
+  summarize(total_revenue = sum(revenue),
+            total_budget = sum(budget)) %>%
+  mutate(profit = total_revenue - total_budget) %>%
+  arrange(desc(profit))
+
+# Print the top 10 genre combinations by profit
+head(genre_revenue, 10)
+
+```
+
+maybe try Apriori algorithm
