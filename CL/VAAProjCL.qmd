@@ -73,8 +73,11 @@ Check it
 
 ```{r}
 <<<<<<< HEAD
+<<<<<<< HEAD
 glimpse(train_movie_data)
 =======
+=======
+>>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
 #| eval: false
 glimpse(movie2)
 >>>>>>> Chee
@@ -110,8 +113,11 @@ Check nulls
 
 ```{r}
 <<<<<<< HEAD
+<<<<<<< HEAD
 colSums(is.na(train_movie_data))
 =======
+=======
+>>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
 #| eval: false
 colSums(is.na(movie2))
 >>>>>>> Chee
@@ -121,10 +127,13 @@ Write to file
 
 ```{r}
 <<<<<<< HEAD
+<<<<<<< HEAD
 #| Eval = False
 
 write_rds(train_movie_data, "data/moviestidied.rds")
 =======
+=======
+>>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
 #| eval: false
 write_rds(movie2, "data/moviestidied.rds")
 >>>>>>> Chee
