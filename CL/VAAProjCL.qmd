@@ -21,15 +21,14 @@ pacman::p_load(tidyverse, readr, lubridate, plotly)
 Import data
 
 ```{r}
-#| Eval = False
-
+#| eval: false
 movie <- read_csv('data/movies.csv')
 ```
 
 Filter data
 
 ```{r}
-#| Eval = False
+#| eval: false
 
 movie <- movie %>%
   select('id', 'title', 'genres', 'original_language', 'popularity', 'production_companies', 'release_date', 'budget', 'revenue', 'runtime', 'status', 'vote_average', 'vote_count', 'credits', 'keywords')
@@ -38,7 +37,7 @@ movie <- movie %>%
 Manipulate data
 
 ```{r}
-#| Eval = False
+#| eval: false
 
 movie2 <- movie %>%
   filter(complete.cases(.)) %>%
@@ -55,10 +54,12 @@ movie2 <- movie %>%
 Check it
 
 ```{r}
+#| eval: false
 glimpse(movie2)
 ```
 
 ```{r}
+#| eval: false
 #change revenue to millions / thousands?
 movie2 <- movie2 %>%
   mutate(budget = as.numeric(budget)/1000000) %>%
@@ -70,6 +71,7 @@ Date is in the correct format, don't need to change
 Add data
 
 ```{r}
+#| eval: false
 #change date to year
 movie2 <- movie2 %>% 
   mutate(release_year = year(as.Date(release_date)))
@@ -78,20 +80,21 @@ movie2 <- movie2 %>%
 Drop data
 
 ```{r}
+#| eval: false
 #drop released
 ```
 
 Check nulls
 
 ```{r}
+#| eval: false
 colSums(is.na(movie2))
 ```
 
 Write to file
 
 ```{r}
-#| Eval = False
-
+#| eval: false
 write_rds(movie2, "data/moviestidied.rds")
 ```
 
