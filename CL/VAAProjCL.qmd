@@ -21,15 +21,14 @@ pacman::p_load(tidyverse, readr, lubridate, plotly,ggstatsplot, crosstalk, DT, g
 Import data
 
 ```{r}
-#| Eval = False
-
+#| eval: false
 movie <- read_csv('data/movies.csv')
 ```
 
 Filter data
 
 ```{r}
-#| Eval = False
+#| eval: false
 
 movie <- movie %>%
   select('id', 'title', 'genres', 'original_language', 'popularity', 'production_companies', 'release_date', 'budget', 'revenue', 'runtime', 'status', 'vote_average', 'vote_count', 'credits', 'keywords')
@@ -38,7 +37,7 @@ movie <- movie %>%
 Manipulate data -\> Split Training and Test Data
 
 ```{r}
-#| Eval = False
+#| eval: false
 
 train_movie_data <- movie %>%
   filter(complete.cases(.)) %>%
@@ -73,10 +72,16 @@ test_movie_data <- movie %>%
 Check it
 
 ```{r}
+<<<<<<< HEAD
 glimpse(train_movie_data)
+=======
+#| eval: false
+glimpse(movie2)
+>>>>>>> Chee
 ```
 
 ```{r}
+#| eval: false
 #change revenue to millions / thousands?
 train_movie_data <- train_movie_data %>%
   mutate(budget = as.numeric(budget)/1000000) %>%
@@ -88,6 +93,7 @@ Date is in the correct format, don't need to change
 Add data
 
 ```{r}
+#| eval: false
 #change date to year
 train_movie_data <- train_movie_data %>% 
   mutate(release_year = year(as.Date(release_date)))
@@ -96,21 +102,32 @@ train_movie_data <- train_movie_data %>%
 Drop data
 
 ```{r}
+#| eval: false
 #drop released
 ```
 
 Check nulls
 
 ```{r}
+<<<<<<< HEAD
 colSums(is.na(train_movie_data))
+=======
+#| eval: false
+colSums(is.na(movie2))
+>>>>>>> Chee
 ```
 
 Write to file
 
 ```{r}
+<<<<<<< HEAD
 #| Eval = False
 
 write_rds(train_movie_data, "data/moviestidied.rds")
+=======
+#| eval: false
+write_rds(movie2, "data/moviestidied.rds")
+>>>>>>> Chee
 ```
 
 Read Back the file
