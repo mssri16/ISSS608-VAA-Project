@@ -470,66 +470,90 @@ summary(result)
 ```
 
 ```{r}
-sample_train_movie_data <- train_movie_data
 
-sample_train_movie_data$genres <- sapply(sample_train_movie_data$genres, "[[", 1)
+sample_train_movie_data <- train_movie_data %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))  %>% 
+  unnest(production_companies)%>%
+  mutate(genres = as.character(production_companies))  %>% 
+  unnest(credits)%>%
+  mutate(genres = as.character(credits))
 
-sample_train_movie_data$production_companies <- sapply(sample_train_movie_data$production_companies, "[[", 1)
+
+sample_train_movie_data <- subset(sample_train_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","credits","performance","release_year"))
+
+#sample_train_movie_data$genres <- sapply(sample_train_movie_data$genres, "[[", 1)
+
+#sample_train_movie_data$production_companies <- sapply(sample_train_movie_data$production_companies, "[[", 1)
 
 
 # perform ANOVA test
-result <- aov(popularity ~ genres, data = sample_train_movie_data)
-summary(result)
+#result <- aov(popularity ~ genres, data = sample_train_movie_data)
+#summary(result)
+```
+
+```{r}
+
+sample_test_movie_data <- test_movie_data %>% 
+  unnest(genres)%>%
+  mutate(genres = as.character(genres))  %>% 
+  unnest(production_companies)%>%
+  mutate(genres = as.character(production_companies))  %>% 
+  unnest(credits)%>%
+  mutate(genres = as.character(credits))
+
+
+sample_test_movie_data <- subset(sample_test_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","credits","performance","release_year"))
 ```
 
 ```{r}
 # select the columns to be used in clustering
-movie_subset <- sample_train_movie_data[, c("popularity","budget","revenue")]
+#movie_subset <- sample_train_movie_data[, c("popularity","budget","revenue")]
 
 
 
 # Load the required libraries
-library(ggplot2)
-library(cluster)
+#library(ggplot2)
+#library(cluster)
 
 # Load the data
-data <- movie_subset
+#data <- movie_subset
 
 # Standardize the data
-scaled_data <- scale(data)
+#scaled_data <- scale(data)
 
 # Perform k-means clustering with k=3
-kmeans_model <- kmeans(scaled_data, 5)
+#kmeans_model <- kmeans(scaled_data, 5)
 
 # Extract the cluster assignments
-clusters <- kmeans_model$cluster
+#clusters <- kmeans_model$cluster
 
 # Add the cluster assignments to the original data
-data$cluster <- clusters
+#data$cluster <- clusters
 
 # Generate a scatter plot of the first two variables colored by cluster
-ggplot(data, aes(x = budget, y = revenue, color = factor(cluster))) + 
-  geom_point(size = 3) +
-  labs(title = "K-Means Clustering with k=3") +
-  theme_bw()
+#ggplot(data, aes(x = budget, y = revenue, color = factor(cluster))) + 
+  #geom_point(size = 3) +
+  #labs(title = "K-Means Clustering with k=3") +
+  #theme_bw()
 
 
 ```
 
 ```{r}
-plot_ly(data, x = ~budget, y = ~revenue, color = ~factor(cluster), 
-              text = ~paste(
-                            "Cluster: ", factor(cluster), "<br>"),
-              hoverinfo = "text", mode = "markers") %>%
-     layout(title = "K-Means Clustering with k=3", 
-            xaxis = list(title = "Sepal Length"), 
-            yaxis = list(title = "Sepal Width"))
+#plot_ly(data, x = ~budget, y = ~revenue, color = ~factor(cluster), 
+              #text = ~paste(
+                            #"Cluster: ", factor(cluster), "<br>"),
+              #hoverinfo = "text", mode = "markers") %>%
+     #layout(title = "K-Means Clustering with k=3", 
+            #xaxis = list(title = "Sepal Length"), 
+            #yaxis = list(title = "Sepal Width"))
 ```
 
 ```{r}
 library(cluster)
 library(factoextra)
-sample_train_movie_data <- subset(sample_train_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","release_year","performance"))
+#sample_train_movie_data <- subset(sample_train_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","release_year"cred,"performance"))
 #create plot of number of clusters vs total within sum of squares
 fviz_nbclust(sample_train_movie_data, kmodes, method = "wss")
 
@@ -590,7 +614,7 @@ sample_train_movie_data$bin_performance <- ifelse(sample_train_movie_data$revenu
 ```
 
 ```{r}
-model <- glm(bin_performance ~ genres, data = sample_train_movie_data, family = binomial)
+model <- glm(bin_performance ~ ., data = sample_train_movie_data, family = binomial)
 
 # Print the summary of the model
 summary(model)
@@ -600,10 +624,54 @@ summary(model)
 ```
 
 ```{r}
-sample_test_movie_data <- test_movie_data
-sample_test_movie_data$genres <- sapply(sample_test_movie_data$genres, "[[", 1)
+train_probabilities <- predict(model, sample_train_movie_data, type = "response")
 
-sample_test_movie_data$production_companies <- sapply(sample_test_movie_data$production_companies, "[[", 1)
+sample_train_movie_data$performance_probabilities <- train_probabilities
+```
+
+```{r}
 
 probabilities <- predict(model, sample_test_movie_data, type = "response")
+```
+
+```{r}
+test_movie_data$performance <- probabilities
+```
+
+```{r}
+# Load the necessary libraries
+library(dplyr)
+library(ggplot2)
+library(car)
+
+# Read the movie data from a CSV file
+movies <- sample_train_movie_data
+
+# Perform a two-way ANOVA analysis
+model <- aov(revenue ~ budget + genre + production_company + genre:production_company, data = movies)
+
+# Summarize the ANOVA results
+summary(model)
+
+# Visualize the ANOVA results
+ggplot(movies, aes(x = genre, y = revenue, fill = production_company)) +
+  geom_boxplot() +
+  labs(title = "Revenue by Genre and Production Company") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  facet_wrap(~genre)
+
+# Check for assumptions of ANOVA
+# Check for homogeneity of variance
+leveneTest(revenue ~ genre * production_company, data = movies)
+
+# Check for normality
+qqPlot(resid(model), main = "Normal Q-Q Plot of Residuals")
+
+# Tukey's post-hoc test for pairwise comparisons
+TukeyHSD(model)
+
+```
+
+```{r}
+
 ```
