@@ -72,20 +72,14 @@ test_movie_data <- movie %>%
 Check it
 
 ```{r}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 glimpse(train_movie_data)
-=======
-=======
-<<<<<<< HEAD
+
 glimpse(train_movie_data)
-=======
-=======
->>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
->>>>>>> Chee
+
 #| eval: false
-glimpse(movie2)
->>>>>>> Chee
+#glimpse(train_movie_data)
+
 ```
 
 ```{r}
@@ -117,42 +111,27 @@ Drop data
 Check nulls
 
 ```{r}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 colSums(is.na(train_movie_data))
-=======
-=======
-<<<<<<< HEAD
+
 colSums(is.na(train_movie_data))
-=======
-=======
->>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
->>>>>>> Chee
+
 #| eval: false
-colSums(is.na(movie2))
->>>>>>> Chee
+colSums(is.na(train_movie_data))
+
 ```
 
 Write to file
 
 ```{r}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> Chee
+
 #| Eval = False
 
 write_rds(train_movie_data, "data/moviestidied.rds")
-=======
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 6f27d5411549b078d7f2a96a26c84c134e79e3a3
->>>>>>> Chee
+
 #| eval: false
-write_rds(movie2, "data/moviestidied.rds")
->>>>>>> Chee
+write_rds(train_movie_data, "data/moviestidied.rds")
+
 ```
 
 Read Back the file
@@ -545,7 +524,7 @@ sample_test_movie_data <- test_movie_data %>%
   mutate(genres = as.character(credits))
 
 
-sample_test_movie_data <- subset(sample_test_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","credits","performance","release_year"))
+sample_test_movie_data <- subset(sample_test_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","credits","release_year"))
 ```
 
 ```{r}
