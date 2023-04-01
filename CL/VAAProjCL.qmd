@@ -15,7 +15,7 @@ date-modified: "`r Sys.Date()`"
 load packages
 
 ```{r}
-pacman::p_load(tidyverse, readr, lubridate, plotly)
+pacman::p_load(tidyverse, readr, lubridate, plotly,ggstatsplot, crosstalk, DT, ggdist, gganimate, FunnelPlotR, knitr, gifski)
 ```
 
 Import data
@@ -35,12 +35,12 @@ movie <- movie %>%
   select('id', 'title', 'genres', 'original_language', 'popularity', 'production_companies', 'release_date', 'budget', 'revenue', 'runtime', 'status', 'vote_average', 'vote_count', 'credits', 'keywords')
 ```
 
-Manipulate data
+Manipulate data -\> Split Training and Test Data
 
 ```{r}
 #| Eval = False
 
-movie2 <- movie %>%
+train_movie_data <- movie %>%
   filter(complete.cases(.)) %>%
   filter(status == "Released") %>%
   filter(budget != "0") %>%
@@ -50,17 +50,35 @@ movie2 <- movie %>%
   mutate(production_companies = lapply(strsplit(production_companies,"-"), as.list)) %>%
   mutate(credits = lapply(strsplit(credits,"-"), as.list)) %>%
   mutate(keywords = lapply(strsplit(keywords,"-"), as.list))
+
+train_movie_data$performance <- ifelse(train_movie_data$revenue/train_movie_data$budget >= 3, "Box Office Hit","Box Office Failure")
+```
+
+```{r}
+#Splitting test data with the movie status Post Production
+
+#| Eval = False
+
+test_movie_data <- movie %>%
+  filter(status == "Post Production") %>%
+  mutate(genres = lapply(strsplit(genres,"-"), as.list)) %>%
+  mutate(production_companies = lapply(strsplit(production_companies,"-"), as.list)) %>%
+  mutate(credits = lapply(strsplit(credits,"-"), as.list)) %>%
+  mutate(keywords = lapply(strsplit(keywords,"-"), as.list)) %>%
+  mutate(budget = as.numeric(budget)/1000000) %>%
+  mutate(revenue = as.numeric(revenue)/1000000) %>%
+  mutate(release_year = year(as.Date(release_date)))
 ```
 
 Check it
 
 ```{r}
-glimpse(movie2)
+glimpse(train_movie_data)
 ```
 
 ```{r}
 #change revenue to millions / thousands?
-movie2 <- movie2 %>%
+train_movie_data <- train_movie_data %>%
   mutate(budget = as.numeric(budget)/1000000) %>%
   mutate(revenue = as.numeric(revenue)/1000000)
 ```
@@ -71,7 +89,7 @@ Add data
 
 ```{r}
 #change date to year
-movie2 <- movie2 %>% 
+train_movie_data <- train_movie_data %>% 
   mutate(release_year = year(as.Date(release_date)))
 ```
 
@@ -84,7 +102,7 @@ Drop data
 Check nulls
 
 ```{r}
-colSums(is.na(movie2))
+colSums(is.na(train_movie_data))
 ```
 
 Write to file
@@ -92,7 +110,7 @@ Write to file
 ```{r}
 #| Eval = False
 
-write_rds(movie2, "data/moviestidied.rds")
+write_rds(train_movie_data, "data/moviestidied.rds")
 ```
 
 Read Back the file
@@ -437,3 +455,155 @@ head(genre_revenue, 10)
 ```
 
 maybe try Apriori algorithm
+
+## Hypothesis Testing
+
+Anova
+
+```{r}
+
+
+# perform ANOVA test
+result <- aov(popularity ~ original_language, data = train_movie_data)
+summary(result)
+
+```
+
+```{r}
+sample_train_movie_data <- train_movie_data
+
+sample_train_movie_data$genres <- sapply(sample_train_movie_data$genres, "[[", 1)
+
+sample_train_movie_data$production_companies <- sapply(sample_train_movie_data$production_companies, "[[", 1)
+
+
+# perform ANOVA test
+result <- aov(popularity ~ genres, data = sample_train_movie_data)
+summary(result)
+```
+
+```{r}
+# select the columns to be used in clustering
+movie_subset <- sample_train_movie_data[, c("popularity","budget","revenue")]
+
+
+
+# Load the required libraries
+library(ggplot2)
+library(cluster)
+
+# Load the data
+data <- movie_subset
+
+# Standardize the data
+scaled_data <- scale(data)
+
+# Perform k-means clustering with k=3
+kmeans_model <- kmeans(scaled_data, 5)
+
+# Extract the cluster assignments
+clusters <- kmeans_model$cluster
+
+# Add the cluster assignments to the original data
+data$cluster <- clusters
+
+# Generate a scatter plot of the first two variables colored by cluster
+ggplot(data, aes(x = budget, y = revenue, color = factor(cluster))) + 
+  geom_point(size = 3) +
+  labs(title = "K-Means Clustering with k=3") +
+  theme_bw()
+
+
+```
+
+```{r}
+plot_ly(data, x = ~budget, y = ~revenue, color = ~factor(cluster), 
+              text = ~paste(
+                            "Cluster: ", factor(cluster), "<br>"),
+              hoverinfo = "text", mode = "markers") %>%
+     layout(title = "K-Means Clustering with k=3", 
+            xaxis = list(title = "Sepal Length"), 
+            yaxis = list(title = "Sepal Width"))
+```
+
+```{r}
+library(cluster)
+library(factoextra)
+sample_train_movie_data <- subset(sample_train_movie_data, select = c("id","title","genres","original_language","popularity","production_companies","release_date","budget","revenue","runtime","status","vote_average","vote_count","release_year","performance"))
+#create plot of number of clusters vs total within sum of squares
+fviz_nbclust(sample_train_movie_data, kmodes, method = "wss")
+
+
+```
+
+```{r}
+library(klaR)
+
+# create sample data
+data <- sample_train_movie_data
+
+# apply k-modes clustering
+km <- kmodes(data, 5)
+
+sample_train_movie_data$cluster <- km$cluster
+# print cluster membership for each observation
+#print(km$cluster)
+
+# print cluster centroids
+#print(km$centers)
+
+```
+
+```{r}
+plot_ly(sample_train_movie_data, x = ~budget, y = ~revenue, color = ~factor(cluster), 
+              text = ~paste(
+                            "Cluster: ", factor(cluster), "<br>"),
+              hoverinfo = "text", mode = "markers") %>%
+     layout(title = "K-Means Clustering with k=3", 
+            xaxis = list(title = "Sepal Length"), 
+            yaxis = list(title = "Sepal Width"))
+
+```
+
+```{r}
+library(ggplot2)
+library(ggfortify)
+
+# assuming the cluster results are stored in a variable named 'kmodes_clusters'
+
+
+# plot clusters
+ggplot(sample_train_movie_data, aes(x = budget, y = revenue, color = as.factor(cluster))) + 
+  geom_point() + 
+  theme_classic()
+
+```
+
+```{r}
+ggstatsplot::ggcorrmat(
+  data = sample_train_movie_data, 
+  cor.vars = c("popularity","budget","revenue","runtime","vote_average","vote_count"))
+```
+
+```{r}
+sample_train_movie_data$bin_performance <- ifelse(sample_train_movie_data$revenue/sample_train_movie_data$budget >=3, 1, 0)
+```
+
+```{r}
+model <- glm(bin_performance ~ genres + production_companies, data = sample_train_movie_data, family = binomial)
+
+# Print the summary of the model
+summary(model)
+
+# Make predictions on new data
+#probabilities <- predict(model, newdata, type = "response")
+```
+
+```{r}
+sample_test_movie_data <- test_movie_data
+sample_test_movie_data$genres <- sapply(sample_test_movie_data$genres, "[[", 1)
+
+sample_test_movie_data$production_companies <- sapply(sample_test_movie_data$production_companies, "[[", 1)
+
+probabilities <- predict(model, sample_test_movie_data, type = "response")
+```
