@@ -590,7 +590,7 @@ sample_train_movie_data$bin_performance <- ifelse(sample_train_movie_data$revenu
 ```
 
 ```{r}
-model <- glm(bin_performance ~ genres + production_companies, data = sample_train_movie_data, family = binomial)
+model <- glm(bin_performance ~ genres, data = sample_train_movie_data, family = binomial)
 
 # Print the summary of the model
 summary(model)
