@@ -2,18 +2,31 @@ project:
   type: website
 
 website:
-  title: "ISSS608-VAA-Project"
+  title: "👨🏻‍💻 ISSS608_Jan2023_Group13-Movie Analysis and Prediction 🎬🍿"
   navbar:
+    background: dark
     left:
       - href: "index.qmd"
         text: "Home"
       - href: "Proposal/Proposal.qmd"
         text: "Proposal"
+      - href: "Poster/Poster.qmd"
+        text: "Poster"
+      - href: "MeetingMinutes/MeetingMinutes.qmd"
+        text: "Meeting Minutes"
+    right:
+      - icon: graph-up-arrow
+        text: "Shiny App"
+        href: https://siddharthmdps.shinyapps.io/ISSS608_JanGroup13_MovieTrendAnalysis/
+      - icon: github
+        text: "Github"
+        href: https://github.com/mssri16/ISSS608-VAA-Project
 
 format:
   html:
     theme: cosmo
     css: styles.css
+    dark: darkly
     toc: true
 
 editor: visual

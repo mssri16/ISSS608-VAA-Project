@@ -1,0 +1,14 @@
+name: ISSS608_JanGroup13_MovieTrendAnalysis
+title: ISSS608_JanGroup13_MovieTrendAnalysis
+username:
+account: siddharthmdps
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8742261
+bundleId: 7038198
+url: https://siddharthmdps.shinyapps.io/ISSS608_JanGroup13_MovieTrendAnalysis/
+when: 1680421881.06351
+lastSyncTime: 1680421881.06354
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: data/.DS_Store
