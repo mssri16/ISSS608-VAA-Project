@@ -937,3 +937,123 @@ new_revenue <- predict(model, new_movie)
 print(new_revenue)
 
 ```
+
+```{r}
+# Create a vector of predicted revenue and movie names
+movie_names <- c("New Movie")
+predicted_revenue <- c(new_revenue)
+
+# Create a bar plot
+barplot(predicted_revenue, names.arg = movie_names, main = "Predicted Revenue for New Movie", ylab = "Revenue (in millions)")
+
+```
+
+```{r}
+# Load ggplot2 package
+library(ggplot2)
+
+# Create a scatter plot
+ggplot(movie_data, aes(x = budget, y = revenue)) +
+  geom_point() +
+  ggtitle("Budget vs Revenue") +
+  xlab("Budget (in millions)") +
+  ylab("Revenue (in millions)") +
+
+# Add a point for the new movie
+geom_point(aes(x = 50, y = new_revenue), color = "red", size = 3)
+
+```
+
+```{r}
+library(ggplot2)
+
+# Bar chart of mean revenue by genre
+genre_revenue <- movie_data %>%
+  pivot_longer(cols = Action:Documentary, names_to = "genre", values_to = "is_genre") %>%
+  filter(is_genre == 1) %>%
+  group_by(genre) %>%
+  summarize(mean_revenue = mean(revenue, na.rm = TRUE))
+
+genre_revenue_plot <- ggplot(genre_revenue, aes(x = genre, y = mean_revenue, fill = genre)) +
+  geom_bar(stat = "identity") +
+  labs(x = "Genre", y = "Mean Revenue", title = "Mean Revenue by Genre") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  coord_flip()
+
+genre_revenue_plot
+
+# Scatter plot of budget vs revenue
+budget_revenue_plot <- ggplot(movie_data, aes(x = budget, y = revenue, color = factor(Action))) +
+  geom_point(alpha = 0.5) +
+  labs(x = "Budget", y = "Revenue", title = "Budget vs. Revenue by Action Genre") +
+  scale_color_discrete(name = "Action Genre") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_minimal() 
+
+# Add a point for the new movie
+geom_point(aes(x = 50, y = new_revenue), color = "red", size = 3)
+
+budget_revenue_plot
+
+```
+
+```{r}
+library(ggplot2)
+library(plotly)
+
+# Define genre colors
+genre_colors <- c(
+  "Action" = "#E69F00",
+  "Adventure" = "#56B4E9",
+  "Science Fiction" = "#009E73",
+  "Comedy" = "#F0E442",
+  "Drama" = "#0072B2",
+  "Romance" = "#D55E00",
+  "Animation" = "#CC79A7",
+  "Thriller" = "#999999",
+  "Horror" = "#000000",
+  "Mystery" = "#8A2BE2",
+  "Fantasy" = "#A5694F",
+  "War" = "#85929E",
+  "History" = "#F4D03F",
+  "Family" = "#76D7C4",
+  "Crime" = "#2E4053",
+  "Music" = "#C0392B",
+  "Western" = "#CD5C5C",
+  "TV Movie" = "#6D4C41",
+  "Documentary" = "#ECF0F1"
+)
+
+# Bar chart of mean revenue by genre
+genre_revenue <- movie_data %>%
+  pivot_longer(cols = Action:Documentary, names_to = "genre", values_to = "is_genre") %>%
+  filter(is_genre == 1) %>%
+  group_by(genre) %>%
+  summarize(mean_revenue = mean(revenue, na.rm = TRUE))
+
+genre_revenue_plot <- ggplot(genre_revenue, aes(x = genre, y = mean_revenue, fill = genre)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = genre_colors) +
+  labs(x = "Genre", y = "Mean Revenue", title = "Mean Revenue by Genre") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  coord_flip()
+
+genre_revenue_plot
+
+# Scatter plot of budget vs revenue
+budget_revenue_plot <- ggplot(movie_data, aes(x = budget, y = revenue, color = factor(Action))) +
+  geom_point(alpha = 0.5) +
+  scale_color_manual(values = genre_colors) +
+  labs(x = "Budget", y = "Revenue", title = "Budget vs. Revenue by Action Genre") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  theme_minimal() +
+  # Add a point for the new movie
+  geom_point(aes(x = 50, y = new_revenue), color = "red", size = 3)
+
+budget_revenue_plot
+
+```
