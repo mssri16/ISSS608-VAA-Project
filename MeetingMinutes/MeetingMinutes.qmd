@@ -1,4 +1,13 @@
 ---
-title: "MeetingMinutes"
-format: beamer
+title: "Meeting Minutes"
 ---
+
+Meeting Minutes for this project can be found on below links:
+
+| Meeting            | View Online                                                                                                        | Download                                                                                                              |
+|--------------------|--------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| 09th February 2023 | [View](https://github.com/mssri16/ISSS608-VAA-Project/blob/master/MeetingMinutes/09Feb2023_VAA_MeetingMinutes.pdf) | [Download](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/MeetingMinutes/09Feb2023_VAA_MeetingMinutes.pdf) |
+| 12th February 2023 | [View](https://github.com/mssri16/ISSS608-VAA-Project/blob/master/MeetingMinutes/12Feb2023_VAA_MeetingMinutes.pdf) | [Download](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/MeetingMinutes/12Feb2023_VAA_MeetingMinutes.pdf) |
+| 03rd March 2023    | [View](https://github.com/mssri16/ISSS608-VAA-Project/blob/master/MeetingMinutes/03Mar2023_VAA_MeetingMinutes.pdf) | [Download](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/MeetingMinutes/03Mar2023_VAA_MeetingMinutes.pdf) |
+| 13th March 2023    | [View](https://github.com/mssri16/ISSS608-VAA-Project/blob/master/MeetingMinutes/13Mar2023_VAA_MeetingMinutes.pdf) | [Download](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/MeetingMinutes/13Mar2023_VAA_MeetingMinutes.pdf) |
+| 28th March 2023    | [View](https://github.com/mssri16/ISSS608-VAA-Project/blob/master/MeetingMinutes/28Mar_VAA_MeetingMinutes.pdf)     | [Download](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/MeetingMinutes/28Mar_VAA_MeetingMinutes.pdf)     |
