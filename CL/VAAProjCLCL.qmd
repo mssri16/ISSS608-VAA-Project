@@ -54,9 +54,7 @@ train_movie_data$performance <- ifelse(train_movie_data$revenue/train_movie_data
 ```
 
 ```{r}
-#Splitting test data with the movie status Post Production
-
-#| Eval = False
+#| eval: False
 
 test_movie_data <- movie %>%
   filter(status == "Post Production") %>%
