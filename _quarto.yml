@@ -21,6 +21,9 @@ website:
       - icon: github
         text: "Github"
         href: https://github.com/mssri16/ISSS608-VAA-Project
+      - icon: book
+        text: "User Guide"
+        href: https://github.com/mssri16/ISSS608-VAA-Project/raw/master/VA%20Project%20-%20User%20Guide.pdf
 
 format:
   html:
