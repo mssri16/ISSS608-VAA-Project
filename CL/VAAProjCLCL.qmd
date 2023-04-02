@@ -982,7 +982,7 @@ genre_revenue_plot <- ggplot(genre_revenue, aes(x = genre, y = mean_revenue, fil
   theme(legend.position = "none") +
   coord_flip()
 
-genre_revenue_plot
+ggplotly(genre_revenue_plot)
 
 # Scatter plot of budget vs revenue
 budget_revenue_plot <- ggplot(movie_data, aes(x = budget, y = revenue, color = factor(Action))) +
@@ -990,12 +990,11 @@ budget_revenue_plot <- ggplot(movie_data, aes(x = budget, y = revenue, color = f
   labs(x = "Budget", y = "Revenue", title = "Budget vs. Revenue by Action Genre") +
   scale_color_discrete(name = "Action Genre") +
   theme(plot.title = element_text(hjust = 0.5)) +
-  theme_minimal() 
+  theme_minimal() +
+  # Add a point for the new movie
+  geom_point(aes(x = 50, y = new_revenue), color = "red", size = 3)
 
-# Add a point for the new movie
-geom_point(aes(x = 50, y = new_revenue), color = "red", size = 3)
-
-budget_revenue_plot
+ggplotly(budget_revenue_plot)
 
 ```
 
