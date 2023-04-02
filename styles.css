@@ -1,1 +1,31 @@
 /* css styles */
+#Projectlinks{
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+.ProjectLink{
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.4rem;
+}
+
+#Poster{
+    position: absolute;
+    width: 100vw;
+    left: 0;
+    padding: 1.2rem;
+    top: 2.4rem;
+}
+
+.ProjectLink > p > a:link { text-decoration: none; }
+
+
+.ProjectLink > p > a:visited { text-decoration: none; }
+
+
+.ProjectLink > p > a:hover { text-decoration: none; }
+
+
+.ProjectLink > p > a:active { text-decoration: none; }

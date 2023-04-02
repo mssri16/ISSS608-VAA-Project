@@ -1,3 +1,5 @@
----
-title: "Poster"
----
+::: {#Poster}
+![](images/image-1975713307.png)
+
+[\[Download\]](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/Poster%20Movie%20Analysis%20and%20Prediction.pdf)
+:::

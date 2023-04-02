@@ -9,9 +9,10 @@ about:
     - icon: github
       text: Github
       href: https://github.com/mssri16/ISSS608-VAA-Project
+    - icon: book
+      text: "User Guide"
+      href: https://github.com/mssri16/ISSS608-VAA-Project/raw/master/VA%20Project%20-%20User%20Guide.pdf
 ---
-
-## Visual Analytics Project (AY 2022-23): Movie Trend Analysis
 
 ### Overview:
 
@@ -25,14 +26,26 @@ Visual analytics is a data analysis approach that utilizes visual representation
 
 For this project, the team will develop a Shiny app as an interface to access the visualizations of movie data and support decision-making. The app will allow users to explore different movie genres and analyze trends in revenue, budget, and ratings. Users can interact with the data and explore the correlations between different variables. The app will also include a predictive model that can forecast the box office revenue of a new movie based on its genre and budget. Overall, this project aims to provide a user-friendly platform for movie trend analysis that leverages the power of visual analytics to support decision-making in the movie industry.
 
+::: {#Projectlinks}
+::: ProjectLink
+[📈 Shiny App](https://siddharthmdps.shinyapps.io/ISSS608_JanGroup13_MovieTrendAnalysis/?_ga=2.257722187.1122427571.1680405864-1468702083.1680405864)
+:::
+
+::: ProjectLink
+[📚 User Guide](https://github.com/mssri16/ISSS608-VAA-Project/raw/master/VA%20Project%20-%20User%20Guide.pdf)
+:::
+
+::: ProjectLink
+[🗂️ Github](https://github.com/mssri16/ISSS608-VAA-Project)
+:::
+:::
+
 [![](OurTeam.png)](https://www.google.com)
 
-::: callout-note
-We are contactable at:
+We are reachable at:
 
-Shi Chee LIang: [clshi.2022\@mitb.smu.edu.sg](clshi.2022@mitb.smu.edu.sg)
-
-Siddharth SIngh: [siddharths.2022\@mitb.smu.edu.sg](siddharths.2022@mitb.smu.edu.sg)
-
-Srivastsan M Srinivasan: [srivatsanms.2022\@mitb.smu.edu.sg](srivatsanms.2022@mitb.smu.edu.sg)
-:::
+| Member                 | Email                                                                        |
+|------------------------|------------------------------------------------------------------------------|
+| Shi Chee Liang         | [clshi.2022\@mitb.smu.edu.sg](mailto:clshi.2022@mitb.smu.edu.sg)             |
+| Siddharth Singh        | [siddharths.2022\@mitb.smu.edu.sg](mailto:siddharths.2022@mitb.smu.edu.sg)   |
+| Srivatsan M Srinivasan | [srivatsanms.2022\@mitb.smu.edu.sg](mailto:srivatsanms.2022@mitb.smu.edu.sg) |
