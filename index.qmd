@@ -40,12 +40,12 @@ For this project, the team will develop a Shiny app as an interface to access th
 :::
 :::
 
-[![](OurTeam.png)](https://www.google.com)
+![](OurTeam.png)
 
 We are reachable at:
 
 | Member                 | Email                                                                        |
-|------------------------|------------------------------------------------------------------------------|
+|------------------|------------------------------------------------------|
 | Shi Chee Liang         | [clshi.2022\@mitb.smu.edu.sg](mailto:clshi.2022@mitb.smu.edu.sg)             |
 | Siddharth Singh        | [siddharths.2022\@mitb.smu.edu.sg](mailto:siddharths.2022@mitb.smu.edu.sg)   |
 | Srivatsan M Srinivasan | [srivatsanms.2022\@mitb.smu.edu.sg](mailto:srivatsanms.2022@mitb.smu.edu.sg) |
