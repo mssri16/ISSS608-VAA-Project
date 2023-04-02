@@ -11,7 +11,7 @@
 <meta name="author" content="Siddharth Singh">
 <meta name="dcterms.date" content="2023-02-12">
 
-<title>ISSS608-VAA-Project - ISSS 608 Project Proposal</title>
+<title>👨🏻‍💻 ISSS608_Jan2023_Group13-Movie Analysis and Prediction 🎬🍿 - ISSS608 - Group 13 - Project Proposal</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">ISSS608-VAA-Project</span>
+    <span class="navbar-title">👨🏻‍💻 ISSS608_Jan2023_Group13-Movie Analysis and Prediction 🎬🍿</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -90,6 +90,26 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link active" href="../Proposal/Proposal.html" aria-current="page">
  <span class="menu-text">Proposal</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Poster/Poster.html">
+ <span class="menu-text">Poster</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../MeetingMinutes/MeetingMinutes.pdf">
+ <span class="menu-text">Meeting Minutes</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://siddharthmdps.shinyapps.io/ISSS608_JanGroup13_MovieTrendAnalysis/"><i class="bi bi-graph-up-arrow" role="img">
+</i> 
+ <span class="menu-text">Shiny App</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/mssri16/ISSS608-VAA-Project"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text">Github</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -111,6 +131,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#objectives" id="toc-objectives" class="nav-link" data-scroll-target="#objectives"><strong>Objectives</strong></a></li>
   <li><a href="#data-set" id="toc-data-set" class="nav-link" data-scroll-target="#data-set"><strong>Data Set</strong></a></li>
   <li><a href="#project-visualizations" id="toc-project-visualizations" class="nav-link" data-scroll-target="#project-visualizations"><strong>Project Visualizations</strong></a></li>
+  <li><a href="#challenges-faced" id="toc-challenges-faced" class="nav-link" data-scroll-target="#challenges-faced">Challenges Faced</a></li>
   </ul>
 </nav>
     </div>
@@ -119,8 +140,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ISSS 608 Project Proposal</h1>
-<p class="subtitle lead">Movie Trend Analysis for Business Insights</p>
+<h1 class="title">ISSS608 - Group 13 - Project Proposal</h1>
+<p class="subtitle lead">Movie Analysis and Prediction for Business Insights</p>
 </div>
 
 
@@ -167,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 13, 2023</p>
+      <p class="date-modified">April 2, 2023</p>
     </div>
   </div>
     
@@ -191,34 +212,66 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="objectives" class="level2">
 <h2 class="anchored" data-anchor-id="objectives"><strong>Objectives</strong></h2>
-<p>Our project is interested in the following problems.</p>
+<p>The project was interested in the following problems.</p>
 <ol type="1">
 <li><p>To identify features of movies that are more popular in recent years. This can facilitate decision-making for companies that may be interested in investing in movie projects.</p></li>
 <li><p>To apply regression models in an attempt to predict the ROI of a particular movie project given various feature data, like genre, budget, etc.</p></li>
-<li><p>(stretch goal) to identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people’s movie viewing habits, over the past 5 years</p></li>
+<li><p>(Dropped) To identify if the increasing popularity of Over-The-Top (OTT) services and implementation of COVID measures had impacted people’s movie viewing habits, over the past 5 years. This objective was subsequently dropped during development due to incomplete crucial data (we were missing data from 2021 to 2022) which was crucial as COIVD had help sped up the demand for OTT services. the team was also short on time due to difficulties in developing a correlation model for categorical and numerical values.</p></li>
 </ol>
 </section>
 <section id="data-set" class="level2">
 <h2 class="anchored" data-anchor-id="data-set"><strong>Data Set</strong></h2>
 <p>To analyze and plot the required graphs, these are the data set and their description that our team will be exploring:<br>
 <br>
-• &nbsp; <strong>movies.csv:</strong> To retrieve all movie information like release year, box office revenue, etc.<br>
-• &nbsp; <strong>OTTAppUsage.csv:</strong> To retrieve all usage of various OTT platforms.<br>
-• &nbsp; <strong>OTTRevenue.csv:</strong> To retrieve revenue generated by OTT platforms.<br>
-• &nbsp; <strong>OTTLibrarySize.csv:</strong> To retrieve the size of OTT platforms’ contents.<br>
-• &nbsp; <strong>OTT_Titles.csv:</strong> To retrieve all the titles in OTT platforms.</p>
+• &nbsp;<a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies"><strong>Movies.csv</strong></a><strong>:</strong> To retrieve all movie information like release year, box office revenue, etc.<br>
+• &nbsp;<a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies"><strong>Multiple revenue.csv</strong></a>: revenue data of various major OTT Platforms, like Netflix, Hulu, and other major streaming apps in China, US and UK<br>
+<strong>• &nbsp;<a href="https://www.kaggle.com/datasets/akshaypawar7/millions-of-movies">Multiple Subscriber.csv</a>:</strong> subscription data of various major OTT Platforms, like Netflix, Hulu, and other major streaming apps in China, US and UK</p>
 </section>
 <section id="project-visualizations" class="level2">
 <h2 class="anchored" data-anchor-id="project-visualizations"><strong>Project Visualizations</strong></h2>
 <p><strong>EDA</strong></p>
-<p>Allows users to select different kinds of visualisation models as well as toggle the years to display how the various genres fared in terms of revenue. Currently expected to use at least tree map and line chart. We would also attempt to indicate notable events that happened in a year where possible. E.g. 911, various pandemic</p>
+<p>the project had intended to allows users to select different kinds of visualisation models as well as toggle the years to display how the various genres fared in terms of revenue. This flexibility for toggling attributes was intended to work like how JMP allows one to select different features to view.</p>
+<p>The visualisations that the team finally decided on are:</p>
+<ol type="1">
+<li><p>Time series line plots for Movie revenue, budget, gross profits by year</p></li>
+<li><p>Bar Plots ranking of the number f movies released in a year for each genres.</p></li>
+</ol>
 <p><img src="images/image-1727258532.png" class="img-fluid"></p>
 <p><strong>Analysis</strong></p>
-<p>On a 2<sup>nd</sup> tab, we will allow the use to select various regression modeling techniques as well as toggle selected features to view the significance of the features on the ROI of movies</p>
+<p>On a 2<sup>nd</sup> tab, we will allow the use to select various regression modeling techniques as well as toggle selected features to view the significance of the features on the ROI of movies.</p>
+<p>The visualisations that the team ultimately decided on are:</p>
+<ol type="1">
+<li><p>Box plots comparisons between Revenue and Genres</p></li>
+<li><p>Box plots comparisons between Budget and Genres</p></li>
+<li><p>Box plots comparisons between Revenue and Production Houses</p></li>
+<li><p>Box plots comparisons between Budget and Production Houses</p></li>
+</ol>
 <p><img src="images/image-407610073.png" class="img-fluid"></p>
 <p><strong>Prediction</strong></p>
 <p>In a final tab, we would like just 1 or 2 of the best regression model and allow the user to key in various parameters to determine if a movie would make money.</p>
+<p>For Prediction, the team decided to show:</p>
+<ol type="1">
+<li><p>The final predicted value (in red) against a scatter plot of all the revenue</p>
+<ol type="1">
+<li>The prediction will take in up to 5 genres and a budget to predict the reveune.</li>
+</ol></li>
+<li><p>Another bar plot is to show the historical means of revenue across all genres.</p></li>
+</ol>
 <p><img src="images/image-713648296.png" class="img-fluid"></p>
+</section>
+<section id="challenges-faced" class="level2">
+<h2 class="anchored" data-anchor-id="challenges-faced">Challenges Faced</h2>
+<p>Provided here is a list of challenges that team faced in the development of this project. this list provides an idea of what to expect and what could be done better if this project were to be revisited in the future.</p>
+<ol type="1">
+<li>Correlation between multiple categorical values and numerical values. Correleation traditionally works best with continous numerical values. while there are methods for carrying out this correleation today, they do not work well with our data sets. Here is an analysis of the reasons
+<ol type="1">
+<li>Our data has alot of categoriacal data like actors and production houses</li>
+<li>Some movies can have upwards of 60 actors and 3 production houses.</li>
+<li>As we translate each o f this categorical values into numerical value by giving them a 1 or 0 flag for each movie, the data set size increases exponentialy both in terms of width and length. after converting unnesting all these variables, we ended up with 2.7million rows of data compared to the original 8k+. At one point, the system informed us that we required 27TB of memory to run the functions for correlation, which the team obviously failed to execute</li>
+</ol></li>
+<li>Collaboration with Github. From the team’s experience, using Github is causing us more trouble than it is helpful. while the team remains convinced that Github is a useful platform for teams to collaborate on a project, there must be pre-planning and ideally familiarity with how the platform works and how to troubleshoot it when it does not, otherwise more time could be wasted on trying to fix these issues and recover codes that were wrongly meshed.</li>
+<li>The project requires diverse knowledge in multiple platforms and languages which required alot of time to get familiar with. Teams should start on such projects as early as possible. R was used in the data wrangling and analysis as well as visualisations. some Quarto and html knowledge is required for designing the webpage. Knowledge in Git commands may also be necessary for some troubleshooting.</li>
+</ol>
 
 
 </section>

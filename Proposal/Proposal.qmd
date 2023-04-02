@@ -1,6 +1,6 @@
 ---
-title: "ISSS 608 Project Proposal"
-subtitle: "Movie Trend Analysis for Business Insights"
+title: "ISSS608 - Group 13 - Project Proposal"
+subtitle: "Movie Analysis and Prediction for Business Insights"
 editor: visual
 format:
   html:
